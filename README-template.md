@@ -66,17 +66,173 @@ Use this section to recap over some of your major learnings while working throug
 To see how you can add code snippets, see below:
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 ```
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+.preview {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-blue-900);
+    padding: var(--spacing-unit);
+    margin: var(--spacing-unit);
+    border-radius: var(--border-radius-card);
+    gap: var(--spacing-unit);
+    max-width: 90%;
+
+    &__img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    &__image-container {
+        overflow: hidden;
+        position: relative;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+    }
+
+    &__image-container::before {
+        content: '';
+        background-image: url('../images/icon-view.svg');
+        position: absolute;
+        background-color: hsl(from var(--color-cyan-400)h s l / 50%);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0;
+        transition:opacity var(--animation-time) ease;
+    }
+
+    &__image-container:hover::before {
+        opacity: 1;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-unit);
+        padding-bottom: var(--spacing-unit);
+        border-bottom: var(--bottom-line) solid var(--color-blue-800);
+    }
+
+    &__title {
+        color: var(--color-white);
+    }
+
+    &__description,
+    &__time-data,
+    &__author-info {
+        color: var(--color-blue-500);
+    }
+
+    &__title:hover,
+    &__author-name:hover,
+    &__time-data:hover {
+        color: var(--color-cyan-400);
+        cursor: pointer;
+    }
+
+    &__data,
+    &__eth,
+    &__time {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    &__eth-data {
+        color: var(--color-cyan-400);
+    }
+
+    &__author {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-unit);
+    }
+
+    &__avatar {
+        width: var(--avatar-size);
+        height: var(--avatar-size);
+        border: var(--bottom-line) solid var(--color-white);
+        border-radius: 50%;
+    }
+
+    &__author-name {
+        color: var(--color-white);
+    }
+
+    @media (min-width: 50rem) {
+        width: var(--card-width);
+    }
 }
 ```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+function App() {
+    return (
+        <section className='preview'>
+            <div className="preview__image-container">
+                <img 
+                    className='preview__img'
+                    src={equilibriumImage}
+                    alt='A transparent cube'
+                />
+            </div>
+            <div className='preview__content'>
+                <h1 className='preview__title'>
+                    {cardData.title}
+                </h1>
+                <p className='preview__description'>
+                    {cardData.description}
+                </p>
+                <div className='preview__data'>
+                    <div className='preview__eth'>
+                        <img
+                            className='preview__eth-icon'
+                            src={ethereum}
+                            alt=''
+                        />
+                        <span className='preview__eth-data'>
+                            {cardData.price}
+                        </span>
+                    </div>
+                    <div className='preview__time'>
+                        <img
+                            className='preview__time-icon'
+                            src={clock}
+                            alt=''
+                        />
+                        <span className='preview__time-data'>
+                            {cardData.timeRemaining}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div className='preview__author'>
+                <img
+                    className='preview__avatar'
+                    src={avatar}
+                    alt='the avatar of Jules Wyvern'
+                />
+                <span className='preview__author-info'>
+                    Creation of &nbsp;
+                    <span className='preview__author-name'>
+                        {cardData.authorName}
+                    </span>
+                </span>
+            </div>
+        </section>
+    );
 }
+
+export default App;
 ```
 
 If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
